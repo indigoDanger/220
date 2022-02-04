@@ -1,35 +1,58 @@
 """
-Name: <your name goes here – first and last>
-<ProgramName>.py
+Name: <Indigo Dockery>
+<hw3>.py
 
-Problem: <Brief, one or two sentence description of the problem that this program solves, in your own words.>
+Problem: <This program requests input, produces output, and does arithmetic using for loops.>
 
 Certification of Authenticity:
-<include one of the following>
-I certify that this assignment is entirely my own work.
-I certify that this assignment is my own work, but I discussed it with: <Name(s)>
+I certify that this assignment is my own work, but I discussed it with Brookes at CSS: <Name(s)>
 """
 
-
 def average():
-    pass
-
+    num_grades = eval(input("how many grades will you enter? "))
+    grade_avg = 0
+    for i in range(num_grades):
+        avg = eval(input("Enter grade: "))
+        grade_avg = grade_avg + (avg / num_grades)
+    print(grade_avg)
+average()
 
 def tip_jar():
-    pass
+    tips = 0
+    for i in range(5):
+        ques = eval(input("how much would you like to donate? "))
+        tips = tips + ques
+    print("total tips:", tips)
+tip_jar()
 
 
 def newton():
-    pass
-
+    square_root = eval(input("What number do you want to square root? "))
+    num_times = eval(input("How many times should we improve the approximation? "))
+    approx = square_root
+    for i in range(num_times):
+        approx = (approx + (square_root / approx)) / 2
+    print(approx)
+newton()
 
 def sequence():
-    pass
-
+    num_terms = eval(input("how many terms would you like? "))
+    output = ("")
+    for j in range(num_terms):
+        output = output + str(j + ((j - 1)%2)) + (" ")
+    print(output)
+sequence()
 
 def pi():
-    pass
-
-
-if __name__ == '__main__':
-    pass
+    n = eval(input("how many terms in the series? "))
+    product = 1
+    for i in range(n):
+        numer = ((i -1)%2)+i+1
+        denom = i + (i%2)+1
+        product = (product * numer / denom)
+    print(product * 2)
+pi()
+#
+#
+# if Indigo Dockery == '__main__':
+#     pass
