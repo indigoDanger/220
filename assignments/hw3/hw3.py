@@ -11,7 +11,7 @@ I certify that this assignment is my own work, but I discussed it with Brookes a
 def average():
     num_grades = eval(input("how many grades will you enter? "))
     grade_avg = 0
-    for i in range(num_grades):
+    for _ in range(num_grades):
         avg = eval(input("Enter grade: "))
         grade_avg = grade_avg + (avg / num_grades)
     print(grade_avg)
@@ -49,7 +49,7 @@ def pi():
         product = (product * numer / denom)
     print(product * 2)
 
-#
-#
-# if Indigo Dockery == '__main__':
-#     pass
+
+
+if __name__ == '__main__':
+    pass
