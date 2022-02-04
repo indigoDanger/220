@@ -15,7 +15,6 @@ def average():
         avg = eval(input("Enter grade: "))
         grade_avg = grade_avg + (avg / num_grades)
     print(grade_avg)
-average()
 
 def tip_jar():
     tips = 0
@@ -23,7 +22,6 @@ def tip_jar():
         ques = eval(input("how much would you like to donate? "))
         tips = tips + ques
     print("total tips:", tips)
-tip_jar()
 
 
 def newton():
@@ -33,7 +31,6 @@ def newton():
     for i in range(num_times):
         approx = (approx + (square_root / approx)) / 2
     print(approx)
-newton()
 
 def sequence():
     num_terms = eval(input("how many terms would you like? "))
@@ -41,7 +38,7 @@ def sequence():
     for j in range(num_terms):
         output = output + str(j + ((j - 1)%2)) + (" ")
     print(output)
-sequence()
+
 
 def pi():
     n = eval(input("how many terms in the series? "))
@@ -51,7 +48,7 @@ def pi():
         denom = i + (i%2)+1
         product = (product * numer / denom)
     print(product * 2)
-pi()
+
 #
 #
 # if Indigo Dockery == '__main__':
