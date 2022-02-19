@@ -28,12 +28,13 @@ def initials():
         last = input("enter the students last name: ")
         print("initials: ", first[0] + last[0])
 
-# def names():
-#     name_list = eval(input("enter a list of names: "))
-#     initial = 0
-#     for i in range(name_list):
-#         initial = name_list.split(".")
-#     print(initial[0], initial[1], initial[2], initial[3], initial[4], initial[5])
+def names():
+    names = input("enter a list of full names, separated by commas: ")
+    name_list = names.split(', ')
+    print("initials: ", end=" ")
+    for i in name_list:
+        initial = i.split(" ")
+        print(initial[0][0] + initial[1][0], end=" ")
 
 def thirds():
     num = eval(input("enter the number of sentences: "))
@@ -71,7 +72,7 @@ def pig_latin():
 if __name__ == '__main__':
     name_reverse()
     initials()
-    #names() - doesn't run
+    names()
     thirds()
     word_average()
     pig_latin()
