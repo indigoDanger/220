@@ -1,8 +1,8 @@
 """
 Name: <Indigo Dockery>
-<hw5>.py
+<hw6>.py
 
-Problem: <This program uses Python strings and lists, as well as Python indexing and slicing facilities.>
+Problem: <This program uses Python strings and arguments, returns values, and modifies objects in parameter.>
 
 Certification of Authenticity:
 I certify that this assignment is my own work, but I discussed it with: Brooke at CSL>
