@@ -92,7 +92,7 @@ def bumper():
     while not win.checkMouse():
         circle_ball.move(x1_direction, y1_direction)
         circle_ball2.move(x2_direction, y2_direction)
-        # time.sleep(1)
+        time.sleep(.25)
         get_random_color()
         if did_collide(circle_ball, circle_ball2):
             x1_direction = -x1_direction
