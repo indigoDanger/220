@@ -1,3 +1,3 @@
 from tests.hw7 import test
 
-test.main()
+test.main(hw7)
