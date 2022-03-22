@@ -1,61 +1,54 @@
 """
-Name: <Indigo Dockery>
-<hw6>.py
+Name: <your name goes here – first and last>
+<ProgramName>.py
 
-Problem: <This program uses Python strings and arguments, returns values, and modifies objects in parameter.>
+Problem: <Brief, one or two sentence description of the problem that this program solves, in your own words.>
 
 Certification of Authenticity:
-I certify that this assignment is my own work, but I discussed it with: Brooke at CSL>
+<include one of the following>
+I certify that this assignment is entirely my own work.
+I certify that this assignment is my own work, but I discussed it with: <Name(s)>
 """
-import math
 
 
 def cash_converter():
-    dollar = eval(input("enter an integer: "))
-    mystr = "That is ${dollars:.2f}"
-    print(mystr.format(dollars=dollar))
+    pass
+
+
 def encode():
-    message = input("enter a message: ")
-    key = eval(input("enter a key: "))
-    for i in range(len(message)):
-        num_m = ord(message[i])
-        letter = chr(num_m + key)
-        print(letter, end="")
-    print("")
+    pass
+
+
 def sphere_area(radius):
-    area = (4 * math.pi) * (radius ** 2)
-    return area
+    pass
+
 
 def sphere_volume(radius):
-    volume = (4/3) * math.pi * (radius ** 3)
-    return volume
+    pass
+
+
 def sum_n(number):
-    sum = 0
-    for i in range(1, number + 1):
-        sum += i
-    print(sum)
+    pass
+
 
 def sum_n_cubes(number):
-    sum = 0
-    for i in range(1, number + 1):
-        sum += i ** 3
-    print(sum)
+    pass
+
+
 def encode_better():
-   phrase = input("enter a message: ")
-   key_phrase = input("enter a key: ")
-   ret =" "
-   for i in range(len(phrase)):
-        num_m = ord(phrase[i]) - 65
-        num_k = ord(key_phrase[i % len(key_phrase)]) - 65
-        number = ((num_m + num_k) % 58) + 65
-        cipher_text = chr(number)
-        ret+=cipher_text
-   print(ret)
+    pass
+
+
 if __name__ == '__main__':
-    cash_converter()
-    encode()
-    sphere_area(13)
-    sphere_volume(13)
-    sum_n(4)
-    sum_n_cubes(3)
-    encode_better()
+    # cash_converter()
+    # encode()
+    # res = sphere_area(13)
+    # print(res)
+    # res = sphere_volume(13)
+    # print(res)
+    # res = sum_n(100)
+    # print(res)
+    # res = sum_n_cubes(13)
+    # print(res)
+    # encode_better()
+    pass

@@ -148,8 +148,8 @@ class Section(TestItem):
             print(f'{tabs}\tdata:')
             for line in self.group_data:
                 print(f'{tabs}\t\t{line}')
-        grade = score_to_letter(
-            self.earned_points * 100 / self.total_points) if self.letter_grades else f'{self.earned_points}/{self.total_points}'
+        score = 0 if self.total_points == 0 else self.earned_points * 100 / self.total_points
+        grade = score_to_letter(score) if self.letter_grades else f'{self.earned_points}/{self.total_points}'
         end_label = f' {self.name} end: {grade} '
         print('{0}{1:-^70}'.format(tabs, end_label))
 
@@ -188,7 +188,10 @@ class TestBuilder:
             'from.*os': 'no need for the os module. please remove it to continue.',
             'import.*pathlib': 'no need for the pathlib module. please remove it to continue.',
             'from.*pathlib': 'no need for the pathlib module. please remove it to continue.',
-            '\[.*for.*in.*\]': 'list comprehension is not allowed. please remove it to continue'
+            '\[.*for.*in.*\]': 'list comprehension is not allowed. please remove it to continue',
+            'with.*open': 'please open files using the techniques discussed in class',
+            '\..*write.*(.*)': 'please write to files using the techniques discussed in class',
+            'yield': 'we do not cover yield in this class. please remove it to continue'
         }
         self.file_name = file_name
         self.rc_file = '../../.pylintrc'
@@ -391,7 +394,7 @@ class ListStream:
     def write(self, s: str):
         if s == '\n':
             return
-        self.data.append(s)
+        self.data += s.split('\n')
 
     def flush(self, *args):
         pass
@@ -452,7 +455,8 @@ def get_all_numbers_in_string(line):
     return re.findall("\d+\.\d+|\d+", line)
 
 
-def build_IO_section(name, tests, expected, dynamic_tests, test_func, test_all_output=False, error_range=None):
+def build_IO_section(name, tests, expected, dynamic_tests, test_func, test_all_output=False, error_range=None,
+                     comp_func=None):
     """
     :param name: the name of the test
     :param tests: sequence of test inputs
@@ -490,10 +494,51 @@ def build_IO_section(name, tests, expected, dynamic_tests, test_func, test_all_o
         else:
             full_output = " ".join(output)
             output_numbers = get_all_numbers_in_string(full_output)
-            if not test_all_output:
-                output_numbers = output_numbers[0]
             try:
-                test = Test(test_name, output_numbers, ex, data=[f'inputs: {tests[i]}'], comp_func=error_function)
+                if not test_all_output:
+                    output_numbers = output_numbers[0]
+
+                test = Test(test_name, output_numbers, ex, data=[f'inputs: {tests[i]}'],
+                            comp_func=comp_func or error_function)
+            except:
+                test = Test(test_name, f'error: incorrect output', ex, data=[f'inputs: {tests[i]}'])
+        section.add_items(test)
+    return section
+
+
+def build_IO_string_section(name, tests, expected, dynamic_tests, test_func, num_inputs=1, test_all_output=False,
+                            comp_func=None):
+    """
+    :param name: the name of the test
+    :param tests: sequence of test inputs
+    :expected: sequence of expected outputs
+    :dynamic_tests: dict of additional tests
+        {'test':[more test inputs, ...], 'expected':[more expected outputs, ...]}
+    :test_func: the function being tested
+    :num_inputs: how many inputs to ignore in the output
+    :test_all_ouptus: compares expected list to entire output list
+    """
+    section = Section(name)
+    for test in dynamic_tests:
+        tests.append(test['test'])
+        expected.append(test['expected'])
+    results = []
+    for test in tests:
+        results.append(get_IO(test_func, test))
+    actual_results = gen(results)
+
+    for i, ex in enumerate(expected):
+        output, res, error = next(actual_results)
+        test_name = f'{name} {i + 1}'
+        if error:
+            test = Test(test_name, None, ex, exception_message=error, data=[f'inputs: {tests[i]}'])
+        elif len(output) == 0:
+            test = Test(test_name, True, False, exception_message='No output',
+                        data=[f'inputs: {tests[i]}', f'expected: {ex}'], show_actual_expected=False)
+        else:
+            final_output = ''.join(output[num_inputs:])
+            try:
+                test = Test(test_name, final_output, ex, data=[f'inputs: {tests[i]}'], comp_func=comp_func)
             except:
                 test = Test(test_name, f'error: incorrect output', ex, data=[f'inputs: {tests[i]}'])
         section.add_items(test)
@@ -517,3 +562,10 @@ def make_random_sentence(words=5, word_min=1, word_max=7):
     for i in range(words):
         sentence.append(get_random_string(word_min, word_max))
     return ' '.join(sentence)
+
+
+def delta_comp_func(error_range):
+    def a(actual, expected):
+        return abs(float(actual) - float(expected)) < error_range
+
+    return a
