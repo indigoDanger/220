@@ -153,5 +153,5 @@ def play(board):
         game_is_won(board)
         game_over(board)
         get_winner(board)
-        play(board)
+    play(board)
 
