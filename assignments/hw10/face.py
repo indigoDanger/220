@@ -31,3 +31,4 @@ class Face:
 
     def wink(self):
         pass
+
